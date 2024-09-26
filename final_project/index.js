@@ -74,11 +74,14 @@ app.post("/login", (req, res) => {
         // Generate JWT access token
         let accessToken = jwt.sign({
             data: password
-        }, 'access', { expiresIn: 60 * 60 });
+        }, 'access', { expiresIn: 60 * 60 *10 });
         // Store access token and username in session
         req.session.authorization = {
             accessToken, username
-        }
+        };
+
+        console.log(req.session.authorization); // Add this line for debugging 
+
         return res.status(200).send("User successfully logged in");
     } else {
         return res.status(208).json({ message: "Invalid Login. Check username and password" });
